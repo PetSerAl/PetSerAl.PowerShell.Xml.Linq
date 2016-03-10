@@ -1,0 +1,3 @@
+[submodule "PetSerAl.Build"]
+	path = Build
+	url = https://github.com/PetSerAl/PetSerAl.Build

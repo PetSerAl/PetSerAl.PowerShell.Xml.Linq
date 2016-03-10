@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="CopyToDestination" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="Build\Build.props" />
+  <PropertyGroup>
+    <PowerShellModuleName>PetSerAl.Xml.Linq</PowerShellModuleName>
+    <CommitParents>compiled/v1;HEAD</CommitParents>
+  </PropertyGroup>
+  <Import Project="Build\Build.PowerShell.afterprops" />
+  <ItemGroup>
+    <Project Include="PetSerAl.PowerShell.Xml.Linq.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <File Include="LICENSE" />
+    <File Include="PetSerAl.Xml.Linq.psd1" />
+  </ItemGroup>
+  <Import Project="Build\Build.targets" />
+</Project>
