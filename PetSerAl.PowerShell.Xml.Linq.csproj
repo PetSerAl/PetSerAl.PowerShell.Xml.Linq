@@ -5,8 +5,10 @@
   <PropertyGroup>
     <ProjectGuid>{B89749C9-13FC-4D20-AB60-8FD0FA34605A}</ProjectGuid>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetPowerShellVersion>v2.0</TargetPowerShellVersion>
     <OutputType>Library</OutputType>
   </PropertyGroup>
+  <Import Project="Build\Project.PowerShell.afterprops" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Management.Automation" />
@@ -28,5 +30,4 @@
     <Compile Include="Get-XName.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="Build\Project.targets" />
 </Project>
