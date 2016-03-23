@@ -4,24 +4,12 @@ using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
     [Cmdlet(VerbsCommon.New, "XDocument", DefaultParameterSetName = "New"), OutputType(typeof(XDocument))]
     public sealed class NewXDocumentCmdlet : PSCmdlet {
-        private XDeclaration declaration;
-        private object content;
         private string textOrUri;
-        private LoadOptions options;
-        private XDocument other;
         public NewXDocumentCmdlet() { }
         [Parameter(ParameterSetName = "New", Position = 1)]
-        public XDeclaration Declaration {
-            set {
-                declaration=value;
-            }
-        }
+        public XDeclaration Declaration { private get; set; }
         [Parameter(ParameterSetName = "New", ValueFromRemainingArguments = true)]
-        public object Content {
-            set {
-                content=value;
-            }
-        }
+        public object Content { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "Parse")]
         public string Text {
             set {
@@ -35,31 +23,23 @@ namespace PetSerAl.PowerShell.Xml.Linq {
             }
         }
         [Parameter(ParameterSetName = "Parse", Position = 1), Parameter(ParameterSetName = "Load", Position = 1)]
-        public LoadOptions Options {
-            set {
-                options=value;
-            }
-        }
+        public LoadOptions Options { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "Copy", Position = 1)]
-        public XDocument Other {
-            set {
-                other=value;
-            }
-        }
+        public XDocument Other { private get; set; }
         protected override void BeginProcessing() {
             XDocument result;
             switch(ParameterSetName) {
                 case "New":
-                    result=new XDocument(declaration, Common.UnwrapPSObjects(content));
+                    result=new XDocument(Declaration, Common.UnwrapPSObjects(Content));
                     break;
                 case "Parse":
-                    result=XDocument.Parse(textOrUri, options);
+                    result=XDocument.Parse(textOrUri, Options);
                     break;
                 case "Load":
-                    result=XDocument.Load(textOrUri, options);
+                    result=XDocument.Load(textOrUri, Options);
                     break;
                 case "Copy":
-                    result=new XDocument(other);
+                    result=new XDocument(Other);
                     break;
                 default:
                     throw new Exception("Invalid ParameterSetName.");

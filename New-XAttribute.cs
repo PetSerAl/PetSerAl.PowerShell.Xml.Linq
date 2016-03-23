@@ -4,36 +4,21 @@ using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
     [Cmdlet(VerbsCommon.New, "XAttribute", DefaultParameterSetName = "New"), OutputType(typeof(XAttribute))]
     public sealed class NewXAttributeCmdlet : PSCmdlet {
-        private XName name;
-        private object value;
-        private XAttribute other;
         public NewXAttributeCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1)]
-        public XName Name {
-            set {
-                name=value;
-            }
-        }
+        public XName Name { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 2)]
-        public object Value {
-            set {
-                this.value=value;
-            }
-        }
+        public object Value { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "Copy", Position = 1)]
-        public XAttribute Other {
-            set {
-                other=value;
-            }
-        }
+        public XAttribute Other { private get; set; }
         protected override void BeginProcessing() {
             XAttribute result;
             switch(ParameterSetName) {
                 case "New":
-                    result=new XAttribute(name, Common.UnwrapPSObject(value));
+                    result=new XAttribute(Name, Common.UnwrapPSObject(Value));
                     break;
                 case "Copy":
-                    result=new XAttribute(other);
+                    result=new XAttribute(Other);
                     break;
                 default:
                     throw new Exception("Invalid ParameterSetName.");

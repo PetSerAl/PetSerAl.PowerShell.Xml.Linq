@@ -4,29 +4,19 @@ using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
     [Cmdlet(VerbsCommon.New, "XText", DefaultParameterSetName = "New"), OutputType(typeof(XText))]
     public sealed class NewXTextCmdlet : PSCmdlet {
-        private string value;
-        private XText other;
         public NewXTextCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1), AllowEmptyString]
-        public string Value {
-            set {
-                this.value=value;
-            }
-        }
+        public string Value { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "Copy", Position = 1)]
-        public XText Other {
-            set {
-                other=value;
-            }
-        }
+        public XText Other { private get; set; }
         protected override void BeginProcessing() {
             XText result;
             switch(ParameterSetName) {
                 case "New":
-                    result=new XText(value);
+                    result=new XText(Value);
                     break;
                 case "Copy":
-                    result=new XText(other);
+                    result=new XText(Other);
                     break;
                 default:
                     throw new Exception("Invalid ParameterSetName.");

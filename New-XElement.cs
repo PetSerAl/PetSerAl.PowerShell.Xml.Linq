@@ -4,24 +4,12 @@ using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
     [Cmdlet(VerbsCommon.New, "XElement", DefaultParameterSetName = "New"), OutputType(typeof(XElement))]
     public sealed class NewXElementCmdlet : PSCmdlet {
-        private XName name;
-        private object content;
         private string textOrUri;
-        private LoadOptions options;
-        private XElement other;
         public NewXElementCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1)]
-        public XName Name {
-            set {
-                name=value;
-            }
-        }
+        public XName Name { private get; set; }
         [Parameter(ParameterSetName = "New", ValueFromRemainingArguments = true)]
-        public object Content {
-            set {
-                content=value;
-            }
-        }
+        public object Content { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "Parse")]
         public string Text {
             set {
@@ -35,31 +23,23 @@ namespace PetSerAl.PowerShell.Xml.Linq {
             }
         }
         [Parameter(ParameterSetName = "Parse", Position = 1), Parameter(ParameterSetName = "Load", Position = 1)]
-        public LoadOptions Options {
-            set {
-                options=value;
-            }
-        }
+        public LoadOptions Options { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "Copy", Position = 1)]
-        public XElement Other {
-            set {
-                other=value;
-            }
-        }
+        public XElement Other { private get; set; }
         protected override void BeginProcessing() {
             XElement result;
             switch(ParameterSetName) {
                 case "New":
-                    result=new XElement(name, Common.UnwrapPSObjects(content));
+                    result=new XElement(Name, Common.UnwrapPSObjects(Content));
                     break;
                 case "Parse":
-                    result=XElement.Parse(textOrUri, options);
+                    result=XElement.Parse(textOrUri, Options);
                     break;
                 case "Load":
-                    result=XElement.Load(textOrUri, options);
+                    result=XElement.Load(textOrUri, Options);
                     break;
                 case "Copy":
-                    result=new XElement(other);
+                    result=new XElement(Other);
                     break;
                 default:
                     throw new Exception("Invalid ParameterSetName.");

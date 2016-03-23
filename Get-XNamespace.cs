@@ -4,19 +4,14 @@ using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
     [Cmdlet(VerbsCommon.Get, "XNamespace"), OutputType(typeof(XNamespace))]
     public sealed class GetXNamespaceCmdlet : PSCmdlet {
-        private XNamespace ns;
         public GetXNamespaceCmdlet() { }
         [Parameter(ParameterSetName = "Namespace", Position = 1), ValidateNotNull]
-        public XNamespace Namespace {
-            set {
-                ns=value;
-            }
-        }
+        public XNamespace Namespace { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = "Xml")]
         public SwitchParameter Xml {
             set {
                 if(value) {
-                    ns=XNamespace.Xml;
+                    Namespace=XNamespace.Xml;
                 }
             }
         }
@@ -24,12 +19,12 @@ namespace PetSerAl.PowerShell.Xml.Linq {
         public SwitchParameter Xmlns {
             set {
                 if(value) {
-                    ns=XNamespace.Xmlns;
+                    Namespace=XNamespace.Xmlns;
                 }
             }
         }
         protected override void BeginProcessing() {
-            WriteObject(ns??XNamespace.None);
+            WriteObject(Namespace??XNamespace.None);
         }
     }
 }
