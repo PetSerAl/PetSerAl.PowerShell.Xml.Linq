@@ -2,14 +2,14 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.Get, "XName"), OutputType(typeof(XName))]
+    [Cmdlet(VerbsCommon.Get, nameof(XName)), OutputType(typeof(XName))]
     public sealed class GetXNameCmdlet : PSCmdlet {
         public GetXNameCmdlet() { }
         [Parameter(Mandatory = true, Position = 1)]
         public string Name { private get; set; }
-        [Parameter(ParameterSetName = "Namespace", Position = 2), ValidateNotNull]
+        [Parameter(ParameterSetName = nameof(Namespace), Position = 2), ValidateNotNull]
         public XNamespace Namespace { private get; set; }
-        [Parameter(Mandatory = true, ParameterSetName = "Xml")]
+        [Parameter(Mandatory = true, ParameterSetName = nameof(Xml))]
         public SwitchParameter Xml {
             set {
                 if(value) {
@@ -17,7 +17,7 @@ namespace PetSerAl.PowerShell.Xml.Linq {
                 }
             }
         }
-        [Parameter(Mandatory = true, ParameterSetName = "Xmlns")]
+        [Parameter(Mandatory = true, ParameterSetName = nameof(Xmlns))]
         public SwitchParameter Xmlns {
             set {
                 if(value) {

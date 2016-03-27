@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.New, "XAttribute", DefaultParameterSetName = "New"), OutputType(typeof(XAttribute))]
+    [Cmdlet(VerbsCommon.New, nameof(XAttribute), DefaultParameterSetName = "New"), OutputType(typeof(XAttribute))]
     public sealed class NewXAttributeCmdlet : PSCmdlet {
         public NewXAttributeCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1)]

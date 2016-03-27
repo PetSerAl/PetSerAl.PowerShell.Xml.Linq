@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.New, "XProcessingInstruction", DefaultParameterSetName = "New"), OutputType(typeof(XProcessingInstruction))]
+    [Cmdlet(VerbsCommon.New, nameof(XProcessingInstruction), DefaultParameterSetName = "New"), OutputType(typeof(XProcessingInstruction))]
     public sealed class NewXProcessingInstructionCmdlet : PSCmdlet {
         public NewXProcessingInstructionCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1)]

@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.New, "XCData", DefaultParameterSetName = "New"), OutputType(typeof(XCData))]
+    [Cmdlet(VerbsCommon.New, nameof(XCData), DefaultParameterSetName = "New"), OutputType(typeof(XCData))]
     public sealed class NewXCDataCmdlet : PSCmdlet {
         public NewXCDataCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1), AllowEmptyString]

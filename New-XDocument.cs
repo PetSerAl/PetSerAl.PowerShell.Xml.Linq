@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.New, "XDocument", DefaultParameterSetName = "New"), OutputType(typeof(XDocument))]
+    [Cmdlet(VerbsCommon.New, nameof(XDocument), DefaultParameterSetName = "New"), OutputType(typeof(XDocument))]
     public sealed class NewXDocumentCmdlet : PSCmdlet {
         private string textOrUri;
         public NewXDocumentCmdlet() { }

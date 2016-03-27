@@ -2,7 +2,7 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.New, "XComment", DefaultParameterSetName = "New"), OutputType(typeof(XComment))]
+    [Cmdlet(VerbsCommon.New, nameof(XComment), DefaultParameterSetName = "New"), OutputType(typeof(XComment))]
     public sealed class NewXCommentCmdlet : PSCmdlet {
         public NewXCommentCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1), AllowEmptyString]
