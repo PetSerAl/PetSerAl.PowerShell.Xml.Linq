@@ -17,7 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembly.cs" />
-    <Compile Include="Common.cs" />
     <Compile Include="New-XCData.cs" />
     <Compile Include="New-XProcessingInstruction.cs" />
     <Compile Include="New-XText.cs" />
@@ -28,6 +27,7 @@
     <Compile Include="New-XElement.cs" />
     <Compile Include="Get-XNamespace.cs" />
     <Compile Include="Get-XName.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

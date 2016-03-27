@@ -30,7 +30,7 @@ namespace PetSerAl.PowerShell.Xml.Linq {
             XDocument result;
             switch(ParameterSetName) {
                 case "New":
-                    result=new XDocument(Declaration, Common.UnwrapPSObjects(Content));
+                    result=new XDocument(Declaration, Utility.UnwrapPSObjects(Content));
                     break;
                 case "Parse":
                     result=XDocument.Parse(textOrUri, Options);

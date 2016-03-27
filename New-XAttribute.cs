@@ -15,7 +15,7 @@ namespace PetSerAl.PowerShell.Xml.Linq {
             XAttribute result;
             switch(ParameterSetName) {
                 case "New":
-                    result=new XAttribute(Name, Common.UnwrapPSObject(Value));
+                    result=new XAttribute(Name, Utility.UnwrapPSObject(Value));
                     break;
                 case "Copy":
                     result=new XAttribute(Other);

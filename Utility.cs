@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    internal static class Common {
+    internal static class Utility {
         public static object UnwrapPSObject(object obj) {
             PSObject psObject = obj as PSObject;
             if(psObject==null) {

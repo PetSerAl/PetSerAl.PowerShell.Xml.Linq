@@ -30,7 +30,7 @@ namespace PetSerAl.PowerShell.Xml.Linq {
             XElement result;
             switch(ParameterSetName) {
                 case "New":
-                    result=new XElement(Name, Common.UnwrapPSObjects(Content));
+                    result=new XElement(Name, Utility.UnwrapPSObjects(Content));
                     break;
                 case "Parse":
                     result=XElement.Parse(textOrUri, Options);
