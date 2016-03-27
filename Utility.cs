@@ -7,21 +7,25 @@ namespace PetSerAl.PowerShell.Xml.Linq {
     internal static class Utility {
         public static object UnwrapPSObject(object obj) {
             PSObject psObject = obj as PSObject;
-            if(psObject==null) {
-                return obj;
-            } else {
+            if(psObject!=null) {
                 object baseObject = psObject.BaseObject;
-                return baseObject is PSCustomObject||
-                       baseObject is string||
-                       baseObject is int||
-                       baseObject is long||
-                       baseObject is double||
-                       baseObject is decimal ? obj : baseObject;
+                if(!(
+                    baseObject is PSCustomObject||
+                    baseObject is string||
+                    baseObject is int||
+                    baseObject is long||
+                    baseObject is double||
+                    baseObject is decimal
+                )) {
+                    obj=baseObject;
+                }
             }
+            return obj;
         }
         public static object UnwrapPSObjects(object obj) {
             obj=UnwrapPSObject(obj);
-            return ShouldEnumerate(obj) ? UnwrapPSObjects((IEnumerable)obj) : obj;
+            IEnumerable enumerable = GetEnumerable(obj);
+            return enumerable==null ? obj : UnwrapPSObjects(enumerable);
         }
         private static IEnumerable UnwrapPSObjects(IEnumerable obj) {
             Stack<IEnumerator> stack = new Stack<IEnumerator>();
@@ -30,10 +34,11 @@ namespace PetSerAl.PowerShell.Xml.Linq {
                 while(stack.Count>0) {
                     while(stack.Peek().MoveNext()) {
                         object current = UnwrapPSObject(stack.Peek().Current);
-                        if(ShouldEnumerate(current)) {
-                            stack.Push(((IEnumerable)current).GetEnumerator());
-                        } else {
+                        IEnumerable enumerable = GetEnumerable(current);
+                        if(enumerable==null) {
                             yield return current;
+                        } else {
+                            stack.Push(enumerable.GetEnumerator());
                         }
                     }
                     (stack.Pop() as IDisposable)?.Dispose();
@@ -44,10 +49,6 @@ namespace PetSerAl.PowerShell.Xml.Linq {
                 }
             }
         }
-        private static bool ShouldEnumerate(object value) {
-            return !(value is string||
-                     value is XObject||
-                     value is XStreamingElement)&&value is IEnumerable;
-        }
+        private static IEnumerable GetEnumerable(object obj) => obj is string||obj is XObject||obj is XStreamingElement ? null : obj as IEnumerable;
     }
 }
