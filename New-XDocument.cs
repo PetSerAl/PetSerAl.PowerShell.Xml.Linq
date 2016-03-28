@@ -2,43 +2,43 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.New, nameof(XDocument), DefaultParameterSetName = "New"), OutputType(typeof(XDocument))]
+    [Cmdlet(VerbsCommon.New, nameof(XDocument), DefaultParameterSetName = ParameterSetNames.New), OutputType(typeof(XDocument))]
     public sealed class NewXDocumentCmdlet : PSCmdlet {
         private string textOrUri;
         public NewXDocumentCmdlet() { }
-        [Parameter(ParameterSetName = "New", Position = 1)]
+        [Parameter(ParameterSetName = ParameterSetNames.New, Position = 1)]
         public XDeclaration Declaration { private get; set; }
-        [Parameter(ParameterSetName = "New", ValueFromRemainingArguments = true)]
+        [Parameter(ParameterSetName = ParameterSetNames.New, ValueFromRemainingArguments = true)]
         public object Content { private get; set; }
-        [Parameter(Mandatory = true, ParameterSetName = "Parse")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Parse)]
         public string Text {
             set {
                 textOrUri=value;
             }
         }
-        [Parameter(Mandatory = true, ParameterSetName = "Load")]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Load)]
         public string Uri {
             set {
                 textOrUri=value;
             }
         }
-        [Parameter(ParameterSetName = "Parse", Position = 1), Parameter(ParameterSetName = "Load", Position = 1)]
+        [Parameter(ParameterSetName = ParameterSetNames.Parse, Position = 1), Parameter(ParameterSetName = ParameterSetNames.Load, Position = 1)]
         public LoadOptions Options { private get; set; }
-        [Parameter(Mandatory = true, ParameterSetName = "Copy", Position = 1)]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Copy, Position = 1)]
         public XDocument Other { private get; set; }
         protected override void BeginProcessing() {
             XDocument result;
             switch(ParameterSetName) {
-                case "New":
+                case ParameterSetNames.New:
                     result=new XDocument(Declaration, Utility.UnwrapPSObjects(Content));
                     break;
-                case "Parse":
+                case ParameterSetNames.Parse:
                     result=XDocument.Parse(textOrUri, Options);
                     break;
-                case "Load":
+                case ParameterSetNames.Load:
                     result=XDocument.Load(textOrUri, Options);
                     break;
-                case "Copy":
+                case ParameterSetNames.Copy:
                     result=new XDocument(Other);
                     break;
                 default:

@@ -27,6 +27,7 @@
     <Compile Include="New-XElement.cs" />
     <Compile Include="Get-XNamespace.cs" />
     <Compile Include="Get-XName.cs" />
+    <Compile Include="ParameterSetNames.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

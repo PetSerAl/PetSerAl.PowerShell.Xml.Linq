@@ -2,20 +2,20 @@
 using System.Management.Automation;
 using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
-    [Cmdlet(VerbsCommon.New, nameof(XCData), DefaultParameterSetName = "New"), OutputType(typeof(XCData))]
+    [Cmdlet(VerbsCommon.New, nameof(XCData), DefaultParameterSetName = ParameterSetNames.New), OutputType(typeof(XCData))]
     public sealed class NewXCDataCmdlet : PSCmdlet {
         public NewXCDataCmdlet() { }
-        [Parameter(Mandatory = true, ParameterSetName = "New", Position = 1), AllowEmptyString]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.New, Position = 1), AllowEmptyString]
         public string Value { private get; set; }
-        [Parameter(Mandatory = true, ParameterSetName = "Copy", Position = 1)]
+        [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Copy, Position = 1)]
         public XCData Other { private get; set; }
         protected override void BeginProcessing() {
             XCData result;
             switch(ParameterSetName) {
-                case "New":
+                case ParameterSetNames.New:
                     result=new XCData(Value);
                     break;
-                case "Copy":
+                case ParameterSetNames.Copy:
                     result=new XCData(Other);
                     break;
                 default:
