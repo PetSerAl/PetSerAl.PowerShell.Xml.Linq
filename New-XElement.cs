@@ -4,24 +4,15 @@ using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
     [Cmdlet(VerbsCommon.New, nameof(XElement), DefaultParameterSetName = ParameterSetNames.New), OutputType(typeof(XElement))]
     public sealed class NewXElementCmdlet : PSCmdlet {
-        private string textOrUri;
         public NewXElementCmdlet() { }
         [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.New, Position = 1)]
         public XName Name { private get; set; }
         [Parameter(ParameterSetName = ParameterSetNames.New, ValueFromRemainingArguments = true)]
         public object Content { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Parse)]
-        public string Text {
-            set {
-                textOrUri=value;
-            }
-        }
+        public string Text { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Load)]
-        public string Uri {
-            set {
-                textOrUri=value;
-            }
-        }
+        public string Uri { private get; set; }
         [Parameter(ParameterSetName = ParameterSetNames.Parse, Position = 1), Parameter(ParameterSetName = ParameterSetNames.Load, Position = 1)]
         public LoadOptions Options { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Copy, Position = 1)]
@@ -33,10 +24,10 @@ namespace PetSerAl.PowerShell.Xml.Linq {
                     result=new XElement(Name, Utility.UnwrapPSObjects(Content));
                     break;
                 case ParameterSetNames.Parse:
-                    result=XElement.Parse(textOrUri, Options);
+                    result=XElement.Parse(Text, Options);
                     break;
                 case ParameterSetNames.Load:
-                    result=XElement.Load(textOrUri, Options);
+                    result=XElement.Load(Uri, Options);
                     break;
                 case ParameterSetNames.Copy:
                     result=new XElement(Other);

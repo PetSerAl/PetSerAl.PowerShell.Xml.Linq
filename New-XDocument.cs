@@ -4,24 +4,15 @@ using System.Xml.Linq;
 namespace PetSerAl.PowerShell.Xml.Linq {
     [Cmdlet(VerbsCommon.New, nameof(XDocument), DefaultParameterSetName = ParameterSetNames.New), OutputType(typeof(XDocument))]
     public sealed class NewXDocumentCmdlet : PSCmdlet {
-        private string textOrUri;
         public NewXDocumentCmdlet() { }
         [Parameter(ParameterSetName = ParameterSetNames.New, Position = 1)]
         public XDeclaration Declaration { private get; set; }
         [Parameter(ParameterSetName = ParameterSetNames.New, ValueFromRemainingArguments = true)]
         public object Content { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Parse)]
-        public string Text {
-            set {
-                textOrUri=value;
-            }
-        }
+        public string Text { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Load)]
-        public string Uri {
-            set {
-                textOrUri=value;
-            }
-        }
+        public string Uri { private get; set; }
         [Parameter(ParameterSetName = ParameterSetNames.Parse, Position = 1), Parameter(ParameterSetName = ParameterSetNames.Load, Position = 1)]
         public LoadOptions Options { private get; set; }
         [Parameter(Mandatory = true, ParameterSetName = ParameterSetNames.Copy, Position = 1)]
@@ -33,10 +24,10 @@ namespace PetSerAl.PowerShell.Xml.Linq {
                     result=new XDocument(Declaration, Utility.UnwrapPSObjects(Content));
                     break;
                 case ParameterSetNames.Parse:
-                    result=XDocument.Parse(textOrUri, Options);
+                    result=XDocument.Parse(Text, Options);
                     break;
                 case ParameterSetNames.Load:
-                    result=XDocument.Load(textOrUri, Options);
+                    result=XDocument.Load(Uri, Options);
                     break;
                 case ParameterSetNames.Copy:
                     result=new XDocument(Other);
