@@ -17,18 +17,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembly.cs" />
-    <Compile Include="New-XCData.cs" />
-    <Compile Include="New-XProcessingInstruction.cs" />
-    <Compile Include="New-XText.cs" />
-    <Compile Include="New-XComment.cs" />
+    <Compile Include="Get-XName.cs" />
+    <Compile Include="Get-XNamespace.cs" />
     <Compile Include="New-XAttribute.cs" />
+    <Compile Include="New-XCData.cs" />
+    <Compile Include="New-XComment.cs" />
     <Compile Include="New-XDeclaration.cs" />
     <Compile Include="New-XDocument.cs" />
     <Compile Include="New-XElement.cs" />
-    <Compile Include="Get-XNamespace.cs" />
-    <Compile Include="Get-XName.cs" />
+    <Compile Include="New-XProcessingInstruction.cs" />
+    <Compile Include="New-XText.cs" />
     <Compile Include="ParameterSetNames.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="Build\Project.targets" />
 </Project>
