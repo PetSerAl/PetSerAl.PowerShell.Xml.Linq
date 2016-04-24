@@ -12,6 +12,7 @@
   <ItemGroup>
     <File Include="LICENSE" />
     <File Include="PetSerAl.Xml.Linq.psd1" />
+    <File Include="PetSerAl.Xml.Linq.psm1" />
   </ItemGroup>
   <Import Project="Build\Build.targets" />
 </Project>
